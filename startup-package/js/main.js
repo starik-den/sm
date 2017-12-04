@@ -328,4 +328,6 @@
         }());
     }());
     /*END upload position update*/
+
+    /*was changed*/
 })(jQuery);
