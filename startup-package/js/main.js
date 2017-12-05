@@ -1,23 +1,4 @@
 (function ($) {
-
-    $(document).ready(function () {
-        var el4Pos = $('.test-block--4').offset().top,
-            el2Pos = $('.test-block--2').offset().top,
-            el3Pos = $('.test-block--3').offset().top;
-        $(window).on('scroll', function () {
-            var windowScroll = $(this).scrollTop();
-            if (windowScroll > 0 && windowScroll < 100) {
-                $(document).scrollTop(0);
-            }
-            if (windowScroll > 100 && windowScroll < el3Pos - 200) {
-                $(document).scrollTop(el2Pos);
-            }
-            if (windowScroll > el3Pos - 200 && windowScroll < el4Pos - 200) {
-                $(document).scrollTop(el3Pos);
-            }
-        })
-    });
-
     /*tab rules*/
     function tabsActivate() {
         var newWidth = $(window).width();
@@ -414,18 +395,18 @@
     //     }
     // });
 
-    $(window).on('scroll', function () {
-        var windowScroll = $(this).scrollTop();
-        if (windowScroll > row1Pos && windowScroll < row2Pos - 500) {
-            $(document).scrollTop(row1Pos);
-        }
-        if (windowScroll > row2Pos -500 && windowScroll < row3Pos - 500) {
-            $(document).scrollTop(row2Pos);
-        }
-        if (windowScroll > row3Pos - 500 && windowScroll < row4Pos - 500) {
-            $(document).scrollTop(row3Pos);
-        }
-    });
+    // $(window).on('scroll', function () {
+    //     var windowScroll = $(this).scrollTop();
+    //     if (windowScroll > row1Pos && windowScroll < row2Pos - 500) {
+    //         $(document).scrollTop(row1Pos);
+    //     }
+    //     if (windowScroll > row2Pos - 500 && windowScroll < row3Pos - 500) {
+    //         $(document).scrollTop(row2Pos);
+    //     }
+    //     if (windowScroll > row3Pos - 500 && windowScroll < row4Pos - 500) {
+    //         $(document).scrollTop(row3Pos);
+    //     }
+    // });
 
 
     //величина прокрутки контента таблицы
@@ -441,7 +422,7 @@
         (function f() {
             if (typeof object !== 'undefined') {
                 positionUpdate();
-                positionTableFooterUpdate();
+                // positionTableFooterUpdate();
             }
 
             if (++count <= 5) {
