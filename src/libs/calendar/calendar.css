@@ -1,0 +1,48 @@
+
+.fc-four-rows .fc-row {
+    height: 25%;
+}
+
+.fc-five-rows .fc-row {
+    height: 20%;
+}
+
+.fc-six-rows .fc-row {
+    height: 16.66%;
+    height: -moz-calc(100%/6);
+    height: -webkit-calc(100%/6);
+    height: calc(100%/6);
+}
+
+.fc-calendar .fc-row > div,
+.fc-calendar .fc-head > div {
+    float: left;
+    height: 70px;
+    width: calc(100%/7);
+    line-height: 70px;
+    position: relative;
+    min-height: 1px;
+    text-align: center;
+    border-bottom: 1px solid white;
+    border-right: 1px solid white;
+    text-transform: uppercase;
+    font-size: 18px;
+    color: #616161;
+}
+
+.fc-calendar .fc-row > div .fc-weekday {
+    display: none;
+}
+
+.fc-calendar .fc-row > div:last-of-type{
+    border-right: 0;
+}
+
+.fc-calendar .fc-row > div.fc-content div:last-of-type{
+    display: none;
+}
+
+
+.fc-calendar .fc-row:last-of-type > div{
+    border-bottom: 0;
+}

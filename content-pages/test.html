@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<p>
+    <script type='text/javascript'
+            src='https://www.google.com/recaptcha/api.js?onload=recaptchaCallback&#038;render=explicit&#038;ver=2.0'></script>
+    <br/>
+    <script>
+        var recaptchaWidgets = [];
+        var recaptchaCallback = function () {
+            var forms = document.getElementsByTagName('form'), pattern = /(^|\s)g-recaptcha(\s|$)/;
+            for (var i = 0; i < forms.length; i++) {
+                var divs = forms[i].getElementsByTagName('div');
+                for (var j = 0; j < divs.length; j++) {
+                    var sitekey = divs[j].getAttribute('data-sitekey');
+                    if (divs[j].className && divs[j].className.match(pattern) && sitekey) {
+                        var params = {
+                            'sitekey': sitekey,
+                            'theme': divs[j].getAttribute('data-theme'),
+                            'type': divs[j].getAttribute('data-type'),
+                            'size': divs[j].getAttribute('data-size'),
+                            'tabindex': divs[j].getAttribute('data-tabindex')
+                        };
+                        var callback = divs[j].getAttribute('data-callback');
+                        if (callback && 'function' == typeof window[callback]) {
+                            params['callback'] = window[callback];
+                        }
+                        var expired_callback = divs[j].getAttribute('data-expired-callback');
+                        if (expired_callback && 'function' == typeof window[expired_callback]) {
+                            params['expired-callback'] = window[expired_callback];
+                        }
+                        var widget_id = grecaptcha.render(divs[j], params);
+                        recaptchaWidgets.push(widget_id);
+                        break;
+                    }
+                }
+            }
+        }
+        window.onload = function () {
+            SubmitInquiry.onclick = function () {
+                // performing request a demo (submitting form)
+                clearFieldMessages();
+                var captchaResponse = document.getElementById('g-recaptcha-response');
+                if (!captchaResponse.value || captchaResponse.value == '') {
+                    jQuery('#form-response-output').removeAttr('class').attr('class', 'total-message-error').text("Validation Error: Please verify captcha.");
+                    return false;
+                }
+                jQuery('#load').css('display', 'block');
+                jQuery.ajax({
+                    data: jQuery(reqForm).serialize(),
+                    type: jQuery(reqForm).attr('method'),
+                    url: jQuery(reqForm).attr('action'),
+                    success: function (data) {
+                        if (data.mailSent) {
+                            if (data.message) {
+                                jQuery('#form-response-output').removeAttr('class').attr('class', 'total-message-success').text(data.message);
+                            }
+                            clearFormFields();
+                        }
+                        else {
+                            if (data.invalids && data.invalids.length > 0) {
+                                for (var i = 0; i < data.invalids.length; i++) {
+                                    var fldAttrs = data.invalids[i].into.split('.');
+                                    var fldId = fldAttrs.find(isID);
+                                    var dvFld = jQuery(fldId);
+                                    jQuery('#' + fldId).removeAttr('class');
+                                    jQuery('#' + fldId).attr('class', '');
+                                    jQuery('#' + fldId).addClass("field-message").text(data.invalids[i].message);
+                                    jQuery('.' + fldId).addClass('invalid');
+                                }
+                            }
+                            if (data.message) {
+                                jQuery('#form-response-output').removeAttr('class').attr('class', 'total-message-error').text(data.message);
+                            }
+                        }
+                        jQuery('#load').css('display', 'none');
+                    },
+                    error: function (data) {
+                        jQuery('#form-response-output').removeAttr('class').attr('class', 'total-message-critical').text('Error performing request a demo: ' + (data.statusText ? data.statusText : 'request failure'));
+                        jQuery('#load').css('display', 'none');
+                    }
+                });
+            }
+        }
+
+        function isID(element, index, array) {
+            if (element.indexOf('your-') == 0) {
+                return true;
+            } else {
+                return false;
+            }
+        }
+
+        function clearFieldMessages() {
+            jQuery('#your-name').removeAttr('class').attr('class', 'field-message-empty').text('');
+            jQuery('#your-email').removeAttr('class').attr('class', 'field-message-empty').text('');
+            jQuery('#your-telephone').removeAttr('class').attr('class', 'field-message-empty').text('');
+            jQuery('#your-company').removeAttr('class').attr('class', 'field-message-empty').text('');
+            jQuery('#form-response-output').removeAttr('class').attr('class', 'total-message-empty').text('');
+            jQuery('input, textarea').removeClass('invalid');
+        }
+
+        function clearFormFields() {
+            jQuery('#YourName').val('');
+            jQuery('#YourEmail').val('');
+            jQuery('#YourTelephone').val('');
+            jQuery('#YourCompany').val('');
+            jQuery('#Comments').val('');
+        }
+
+        jQuery('#load').css('display', 'none');
+        var handleClick = 'ontouchstart' in document.documentElement ? 'touchstart' : 'click',
+            iOSScrollTop;
+        jQuery('body').on(handleClick, '.form-modal-wrapper-2', function (e) {
+            e.stopPropagation();
+            setTimeout(function () {
+                if (jQuery(e.target).hasClass('close-modal') || jQuery(e.target).hasClass('form-modal-wrapper-2')) {
+                    clearFieldMessages();
+                    clearFormFields();
+                    jQuery('.form-modal-wrapper').hide();
+                    jQuery('.is-iOS body').removeClass('body-fixed');
+                    if (jQuery('html').hasClass('is-iOS')) {
+                        jQuery('html, body').animate({
+                            scrollTop: iOSScrollTop
+                        }, 1);
+                    }
+                    e.stopPropagation();
+                    return false;
+                }
+            }, 200);
+        });
+        jQuery('body').on(handleClick, '.get-in-touch', function (e) {
+            iOSScrollTop = jQuery(window).scrollTop();
+            e.preventDefault();
+            //setTimeout(function(){
+            jQuery('.form-modal-wrapper').css('display', 'block');
+            jQuery('#load').css('display', 'none');
+            jQuery('.is-iOS body').addClass('body-fixed');
+            //}, 200);
+        });</script>
+    <br/>
+    <!--<script src="/wp-content/themes/themeforest-5556590-the7-responsive-multipurpose-wordpress-theme-wordpress-theme/dt-the7/js/landing/waypoints.min.js"></script>-->
+    <br/>
+    <script type='text/javascript'>/* <![CDATA[ */
+    var _wpcf7 = {
+        "loaderUrl": "https:\/\/demos.solutionmentors.com\/Request\/Scripts\/wp-content\/plugins\/contact-form-7\/images\/ajax-loader.gif",
+        "recaptcha": {"messages": {"empty": "Please verify that you are not a robot."}},
+        "sending": "Sending ..."
+    };
+    /* ]]&gt; */
+    var handleClick = 'ontouchstart' in document.documentElement ? 'touchstart' : 'click';
+    jQuery('.toggler').on(handleClick, function () {
+        var row = jQuery(this).closest('tr');
+        var txt = (jQuery(this).text() == '+') ? '−' : '+';
+        jQuery(this).text(txt);
+        row.nextAll('tr[data-group=' + row.data('group') + ']').toggle();
+    });
+    </script>
+    <br/>
+    <script type='text/javascript'>
+        jQuery(function () {
+            var handleClick = 'ontouchstart' in document.documentElement ? 'touchstart' : 'click',
+                step1PositionTop,
+                step2PositionTop,
+                step3PositionTop,
+                step4PositionTop,
+                step1Height,
+                step2Height,
+                step3Height,
+                step4Height,
+                menuRow,
+                windowHeight,
+                step1 = jQuery('div[data-dev-step=1]'),
+                step2 = jQuery('div[data-dev-step=2]'),
+                step3 = jQuery('div[data-dev-step=3]'),
+                step4 = jQuery('div[data-dev-step=4]'),
+                menuRow = jQuery('.floating-row-menu'),
+                menuRowH,
+                hh;
+        </p>
+            < p >
+            function initiateVariables() {
+                step1PositionTop = jQuery('div[data-dev-step=1]').offset().top;
+                step2PositionTop = jQuery('div[data-dev-step=2]').offset().top;
+                step3PositionTop = jQuery('div[data-dev-step=3]').offset().top;
+                step4PositionTop = jQuery('div[data-dev-step=4]').offset().top;
+                windowHeight = jQuery(window).innerHeight();
+                menuRowH = menuRow.innerHeight();
+                hh = (windowHeight >= 300) ? 70 : 60;
+            } < /p>
+            < /p>
+            < /body>
+            < /html>
