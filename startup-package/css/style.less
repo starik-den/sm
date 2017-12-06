@@ -1892,8 +1892,8 @@ section {
       position: relative;
       max-width: 460px;
       left: -20px;
-      height: 100vh;
-      padding-bottom: 500px;
+      //height: 100vh;
+      //padding-bottom: 500px;
       justify-content: center;
     }
     @media screen and (max-width: 600px) {
@@ -2027,6 +2027,7 @@ section {
   width: 100%;
   background: #ffffff;
 }
+
 /*END style for responsive table*/
 
 .table-get-info {
@@ -2711,33 +2712,25 @@ body #load {
   display: block;
 }
 
-.zls-small .zls_fltxtcnt {
-  display: none !important;
+.form-modal #load {
+  display: none;
 }
 
-.zlslrgbtn-on-tit1 {
-  display: none !important;
+@media screen and (max-width: 1100px) {
+  .zls-btnsub .zls-lftbtn {
+    display: none !important;
+  }
+
+  .zls-small .zls_fltxtcnt {
+    display: none !important;
+  }
+
+  .zlslrgbtn-on-tit1 {
+    display: none !important;
+  }
+
+  .zls-small.zls-btnmn.zls-btrht.handheld {
+    display: none !important;
+  }
 }
 
-.zls-small.zls-btnmn.zls-btrht.handheld {
-  display: none !important;
-}
-
-.test-block {
-  height: 100vh;
-  &--1 {
-    background: red;
-  }
-  &--2 {
-    background: blue;
-  }
-  &--3 {
-    background:green ;
-  }
-  &--4 {
-    background: grey;
-  }
-  &--5 {
-    background: yellow;
-  }
-}
