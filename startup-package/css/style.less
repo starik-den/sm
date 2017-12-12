@@ -1726,6 +1726,7 @@ section {
   }
   .table-total {
     display: none;
+    max-width: 520px;
     color: #000000;
     font-size: 30px;
     font-weight: 700;
@@ -1733,7 +1734,7 @@ section {
     line-height: 24px;
     text-align: left;
     border-bottom: 1px solid #7a7a7a;
-    margin-top: 60px;
+    margin: 20px auto 0;
     padding-bottom: 17px;
     @media screen and (max-width: 1099px) {
       display: block;
@@ -1742,13 +1743,14 @@ section {
       font-size: 16px;
       line-height: 24px;
       padding-bottom: 3px;
+      margin-top: 0;
     }
   }
   .table-footer {
     @media screen and (max-width: 1099px) {
       display: flex;
       width: 100%;
-      max-width: 600px;
+      max-width: 520px;
       margin-left: auto;
       margin-right: auto;
     }
@@ -1784,6 +1786,9 @@ section {
         font-size: 24px;
         padding-top: 3px;
         padding-left: 5px;
+      }
+      @media screen and (max-width: 425px) {
+        padding-bottom: 30px;
       }
     }
     &--2 {
@@ -1867,8 +1872,8 @@ section {
     @media screen and (max-width: 1099px) {
       //max-width: 460px;
       //max-height: 370px;
-      overflow: auto;
-      margin-right: -20px;
+      //overflow: auto;
+      //margin-right: -20px;
     }
     @media screen and (max-width: 460px) {
       //max-height: 330px;
@@ -1891,16 +1896,19 @@ section {
       border-bottom-width: 1px;
       position: relative;
       max-width: 460px;
-      left: -20px;
+      //left: -20px;
       //height: 100vh;
       //padding-bottom: 500px;
       justify-content: center;
+      &:last-of-type {
+        border: none;
+      }
     }
-    @media screen and (max-width: 600px) {
-      margin-left: 0;
-      left: auto;
-      padding-right: 20px;
-    }
+    //@media screen and (max-width: 600px) {
+    //  margin-left: 0;
+    //  left: auto;
+    //  padding-right: 20px;
+    //}
     &:before,
     &:after {
       content: none;
@@ -1965,8 +1973,12 @@ section {
         letter-spacing: 0.12px;
         line-height: 30px;
         text-align: left;
+        padding: 0;
         @media screen and (max-width: 1099px) {
           font-size: 30px;
+        }
+        @media screen and (max-width: 500px) {
+          font-size: 24px;
         }
         @media screen and (max-width: 425px) {
           font-size: 16px;
@@ -2018,15 +2030,86 @@ section {
   }
 }
 
-/*style for responsive table*/
-.table-fixed-wrapper {
-  position: relative;
+.col__item {
+  p.title {
+    color: #000000;
+    font-size: 18px;
+    font-weight: 700;
+    letter-spacing: .09px;
+    line-height: 1.3;
+    text-align: left;
+    vertical-align: middle;
+    margin-bottom: 15px;
+    @media screen and (max-width: 460px) {
+      font-size: 14px;
+    }
+  }
+  p.content {
+    &:before {
+      content: "";
+      display: inline-block;
+      border-radius: 50%;
+      background: #f4d400 url(../img/check.png) no-repeat 50%;
+      width: 76px;
+      height: 76px;
+      vertical-align: middle;
+      margin-right: 10px;
+      @media screen and (max-width: 425px) {
+        width: 50px;
+        height: 50px;
+        background-size: 65% auto;
+      }
+    }
+  }
+  &--1 {
+    @media screen and (max-width: 1099px) {
+      width: 40%;
+    }
+    @media screen and (max-width: 425px) {
+      width: 45%;
+    }
+    .title {
+      display: none;
+      @media screen and (max-width: 1099px) {
+        display: block;
+      }
+    }
+    .content {
+      @media screen and (max-width: 1099px) {
+        padding: 10px 0 0;
+      }
+    }
+  }
+  &--2 {
+    display: none;
+    @media screen and (max-width: 1099px) {
+      width: 60%;
+      padding-left: 10%;
+      display: block;
+      border-left: 1px solid #ccc;
+    }
+    @media screen and (max-width: 430px) {
+      padding-left: 5%;
+    }
+    @media screen and (max-width: 425px) {
+      width: 55%;
+      padding-left: 12%;
+    }
+    @media screen and (max-width: 375px) {
+      padding-left: 7%;
+    }
+  }
 }
 
-.table-fixed-footer-inner {
-  width: 100%;
-  background: #ffffff;
-}
+/*style for responsive table*/
+//.table-fixed-wrapper {
+//  position: relative;
+//}
+//
+//.table-fixed-footer-inner {
+//  width: 100%;
+//  background: #ffffff;
+//}
 
 /*END style for responsive table*/
 
@@ -2406,6 +2489,9 @@ section {
   opacity: 1;
   .transition(.5s, ease-out, all);
   transition-property: opacity, top, bottom, visibility, background-color;
+  @media screen and (max-width: 1024px) {
+    padding: 15px 0;
+  }
   .content-wrapper {
     width: 100%;
     max-width: 1190px;
@@ -2467,6 +2553,9 @@ section {
     }
     @media screen and (max-width: 480px) {
       font-size: 18px;
+    }
+    @media screen and (max-width: 370px) {
+      font-size: 15px;
     }
   }
   .get-info {
