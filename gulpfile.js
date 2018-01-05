@@ -11,14 +11,14 @@ var gulp = require('gulp'),
 
 /* Компилируем style.less в css с сжатием */
 gulp.task('less', function () {
-    return gulp.src('startup-package/css/style.less')
+    return gulp.src('custom-software-development/css/style.less')
         .pipe(sourcemaps.init())/*закомментировать если не нужен sourcemaps*/
         .pipe(less())
         .pipe(autoprefixer(['last 5 versions', '>1%', 'ie 9']))
         .pipe(cssnano())
         // .pipe(rename({suffix: '.min'}))
         .pipe(sourcemaps.write())/*закомментировать если не нужен sourcemaps*/
-        .pipe(gulp.dest('startup-package/css/'))
+        .pipe(gulp.dest('custom-software-development/css/'))
         .pipe(browserSync.reload({stream: true}));
 });
 
@@ -93,10 +93,10 @@ gulp.task('scripts', function () {
 gulp.task('browser-sync', function () {
     browserSync({
         server: {
-            baseDir: 'dist',
-            // index: ""
+            baseDir: './',
+            index: "custom-software-development.html"
         },
-        port: 8080,
+        port: 8030,
         open: true,
         notify: false,
     });
@@ -105,9 +105,9 @@ gulp.task('browser-sync', function () {
 gulp.task('watch', [
     'less',
     // 'scripts',
-    // 'browser-sync'
+    'browser-sync'
 ], function () {
-    gulp.watch('startup-package/**/*.less', ['less']);
+    gulp.watch('custom-software-development/**/*.less', ['less']);
     gulp.watch(['src/*.js', 'blocks/*/*.js'], ['scripts']);
     gulp.watch('dist/**/**/*.html', browserSync.reload);
 });
